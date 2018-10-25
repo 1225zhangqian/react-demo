@@ -1,0 +1,14 @@
+.ant-menu-item span {
+  display: inline-block;
+  width: 100%;
+}
+.ant-dropdown-menu{
+  width: 270px;
+}
+.ant-dropdown-menu-item span {
+  display: inline-block;
+  width: 260px;
+}
+.ant-popover-arrow{
+  display: none;
+}
