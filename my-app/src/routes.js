@@ -10,7 +10,7 @@ import TreeDemo from './containers/TreeDemo/TreeDemo'
 import ModalDemo from './containers/ModalDemo/ModalDemo'
 import TableDemo from './containers/TableDemo/TableDemo'
 import MenuDemo from './containers/MenuDemo/MenuDemo'
-import TodoListDemo from './containers/TodoListDemo/TodoListDemo'
+// import TodoListDemo from './containers/TodoListDemo/TodoListDemo'
 
 import { Layout, Breadcrumb } from 'antd'
 const { Content, Footer } = Layout
@@ -66,12 +66,12 @@ const routes = [
     path: '/MenuDemo',
     Breadcrumb: () => <span>MenuDemo</span>,
     main: () => <MenuDemo />
-  },
-  {
-    path: '/TodoListDemo',
-    Breadcrumb: () => <span>TodoListDemo</span>,
-    main: () => <TodoListDemo />
   }
+  // {
+  //   path: '/TodoListDemo',
+  //   Breadcrumb: () => <span>TodoListDemo</span>,
+  //   main: () => <TodoListDemo />
+  // }
 ]
 
 class Routes extends React.Component {
