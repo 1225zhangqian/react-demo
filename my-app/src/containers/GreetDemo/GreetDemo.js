@@ -7,6 +7,7 @@ import zhCN from 'antd/lib/locale-provider/zh_CN'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 import 'antd/dist/antd.css'
+import  Child from "./childTest"
 moment.locale('zh-cn')
 
 const element=<h1>Hello</h1>
@@ -59,6 +60,7 @@ class Time extends React.Component {
     return (
       <LocaleProvider locale={zhCN}>
         <div>
+        <Child></Child>
           <DatePicker onChange={value => this.handleChange(value)} />
           <div style={{ marginTop: 20 }}>
             当前日期：{this.state.date && this.state.date.toString()}

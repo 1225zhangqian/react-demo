@@ -1,7 +1,8 @@
-import React from 'react'
+import React from "react";
 
-import { Modal, Button, Dropdown, Menu } from 'antd'
-import TreeDemo from '../TreeDemo/TreeDemo'
+import { Modal, Button, Dropdown, Menu } from "antd";
+import TreeDemo from "../TreeDemo/TreeDemo";
+import ModalExample from "./ModalExample";
 
 const menu = (
   <Menu>
@@ -29,40 +30,48 @@ const menu = (
       </a>
     </Menu.Item>
   </Menu>
-)
+);
 class ModalDemo extends React.Component {
-  state = { visible: false }
+  state = { visible: false };
   showModal = () => {
     this.setState({
       visible: true
-    })
-  }
+    });
+  };
   handleOk = e => {
-    console.log(e)
+    console.log(e);
     this.setState({
       visible: false
-    })
-  }
+    });
+  };
   handleCancel = e => {
-    console.log(e)
+    console.log(e);
     this.setState({
       visible: false
-    })
-  }
+    });
+  };
   render() {
-    const style = { color: "red"}  
-    return <div>
+    const style = { color: "red" };
+    return (
+      <div>
         <Button type="primary" onClick={this.showModal}>
           Open
         </Button>
-        <Modal title="Basic Modal" visible={this.state.visible}  onOk={this.handleOk} onCancel={this.handleCancel}>
+        <Modal
+          title="Basic Modal"
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+        >
           <Dropdown overlay={menu} placement="bottomLeft" trigger="click">
             <Button style={style}>bottomLeft</Button>
           </Dropdown>
           <TreeDemo />
         </Modal>
+        <ModalExample />
       </div>
+    );
   }
 }
 
-export default ModalDemo
+export default ModalDemo;
