@@ -14,38 +14,42 @@ class CommonModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: props.isOpen
+      isOpen: props.isOpen,
+      ModalId: props.ModalId
     };
   }
-  showConfirm() {
-    Modal.confirm({
-      title: "Do you Want to delete these items?",
-      content: "Some descriptions",
-      onOk() {
-        console.log("OK");
-      },
-      onCancel() {
-        console.log("Cancel");
-      }
-    });
-  }
+  toggle = () => {
+    this.props.toggle(this.state.ModalId);
+  };
+  handleOk = e => {
+    const onOk = this.props.onOk;
+    if (onOk) {
+      onOk(e, this.state.ModalId);
+    }
+  };
+  handleCancel = e => {
+    const onCancel = this.props.onCancel;
+    if (onCancel) {
+      onCancel(e, this.state.ModalId);
+    }
+  };
   renderModalBody() {
     // const attributes = omit(this.props, propsToOmit);
-    return (
-      <ModalBody>
-        <Button onClick={this.showConfirm}>Confirm</Button>
-        {this.props.children}
-      </ModalBody>
-    );
+    return <ModalBody>{this.props.children}</ModalBody>;
   }
   renderModalFooter() {
     const { okText, okType, cancelText, confirmLoading } = this.props;
     const defaultFooter = (
       <ModalFooter>
-        <Button onClick={this.handleCancel} {...this.props.cancelButtonProps}>
+        <Button
+          color="secondary"
+          onClick={this.handleCancel}
+          {...this.props.cancelButtonProps}
+        >
           {cancelText || ModalLocale.cancelText}
         </Button>
         <Button
+          color="primary"
           type={okType}
           loading={confirmLoading}
           onClick={this.handleOk}
