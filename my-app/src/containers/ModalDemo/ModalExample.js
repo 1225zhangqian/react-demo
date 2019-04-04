@@ -1,13 +1,15 @@
 import React from "react";
 import { Button } from "antd";
-import Modal from "../../components/modal/CommonModal";
+import Modal from "../../components/modal/index";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 class ModalExample extends React.Component {
   state = {
     visible: false,
     isOpenA: false,
-    isOpenB: false
+    isOpenB: false,
+    isOpenC: false,
+    isOpenE: false
   };
   toggle = e => {
     const name =
@@ -24,14 +26,17 @@ class ModalExample extends React.Component {
   handleCancel = (e, ModalId) => {
     this.toggle(ModalId);
   };
-  openotherModal = e => {
+  openOtherModal = () => {
     this.setState({
-      isopen: true
+      isOpenC: true
     });
   };
-  handleOkother = e => {
-    this.setState({
-      isopen: false
+  Confirm = () => {
+    Modal.confirm({
+      title: "Confirm",
+      content: "Bla bla ...",
+      okText: "确认",
+      cancelText: "取消"
     });
   };
   Columns = Columns => {
@@ -107,7 +112,7 @@ class ModalExample extends React.Component {
           <p>Some contents...</p>
           <p>Some contents...</p>
         </Modal>
-        <p>异步关闭</p>
+        <p>自定义页脚</p>
         <Button type="primary" modalid="isOpenB" onClick={this.toggle}>
           Open Modal with async logic
         </Button>
@@ -118,11 +123,11 @@ class ModalExample extends React.Component {
           toggle={this.toggle}
           size={"lg"}
           footer={[
-            <Button key="back" onClick={this.handleCancel}>
+            <Button key="back" modalid="isOpenB" onClick={this.toggle}>
               Return
             </Button>,
-            <Button key="back" onClick={this.openotherModal}>
-              open
+            <Button key="other" onClick={this.openOtherModal}>
+              open other modal
             </Button>
           ]}
         >
@@ -131,10 +136,29 @@ class ModalExample extends React.Component {
 
         <Modal
           title="Basic Modal fff"
-          isOpen={this.state.isopen}
-          toggle={this.toggledd}
+          isOpen={this.state.isOpenC}
+          ModalId="isOpenC"
+          toggle={this.toggle}
           size={"lg"}
-          onOk={this.handleOkother}
+          onOk={this.handleOk}
+        />
+        <p>确认对话框</p>
+        <Button type="primary" modalid="isOpenD" onClick={this.Confirm}>
+          Confirm
+        </Button>
+        <p>国际化</p>
+        <Button type="primary" modalid="isOpenE" onClick={this.toggle}>
+          Open Modal
+        </Button>
+        <Modal
+          title="Basic Modal"
+          ModalId="isOpenE"
+          isOpen={this.state.isOpenE}
+          toggle={this.toggle}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+          okText="确认"
+          cancelText="取消"
         />
       </div>
     );

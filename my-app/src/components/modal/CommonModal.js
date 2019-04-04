@@ -78,13 +78,11 @@ class CommonModal extends React.Component {
     } = this.props;
 
     return (
-      <div>
-        <Modal {...this.props}>
-          <ModalHeader toggle={this.toggle}>{this.props.title}</ModalHeader>
-          {this.renderModalBody()}
-          {this.renderModalFooter()}
-        </Modal>
-      </div>
+      <Modal {...this.props}>
+        <ModalHeader toggle={this.toggle}>{this.props.title}</ModalHeader>
+        {this.renderModalBody()}
+        {this.renderModalFooter()}
+      </Modal>
     );
   }
 }
