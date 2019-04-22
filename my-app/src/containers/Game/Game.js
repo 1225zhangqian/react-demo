@@ -1,4 +1,4 @@
-import React, { Component } from 'react'  
+import React, { Component } from 'react'
 import './Game.css'
 //ES6 的 class  组件名称大写
 //class Square extends React.Component {
@@ -59,6 +59,7 @@ class Board extends Component {
   renderSquare(i) {
     return (
       <Square
+        key={i}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
       />
@@ -74,9 +75,20 @@ class Board extends Component {
     } else {
       status = "Next player: " + (this.state.xIsNext ? "X" : "O");
     } */
+    let count = 9, arr = [1, 2, 3]
     return (
       <div>
-        <div className="board-row">
+        {
+          arr.map(i => {
+            return (<div className="board-row" key={i}>
+              {arr.map(j => {
+                count--
+                return this.renderSquare(count)
+              })}
+            </div>)
+          })
+        }
+        {/* <div className="board-row">
           {this.renderSquare(0)}
           {this.renderSquare(1)}
           {this.renderSquare(2)}
@@ -90,7 +102,7 @@ class Board extends Component {
           {this.renderSquare(6)}
           {this.renderSquare(7)}
           {this.renderSquare(8)}
-        </div>
+        </div> */}
       </div>
     )
   }

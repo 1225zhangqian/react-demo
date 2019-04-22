@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { Form, Input, Icon, Button, Row, Col } from 'antd'
 const FormItem = Form.Item
 
@@ -49,7 +48,8 @@ class DynamicFieldSet extends React.Component {
     const keys = form.getFieldValue('keys')
     /*  从父组件获取值,取长度*/
     const nextKeys = keys.concat(this.state.uuid)
-    this.state.uuid++
+    let uuid = this.state.uuid
+    this.setState({ uuid: uuid++ })
     // can use data-binding to set
     // important! notify form to detect changes
     form.setFieldsValue({
@@ -118,7 +118,7 @@ class DynamicFieldSet extends React.Component {
               }
             ]
           })(
-            <Input 
+            <Input
               placeholder="passenger name"
               style={{ width: '60%', marginRight: 8 }}
             />
@@ -135,33 +135,33 @@ class DynamicFieldSet extends React.Component {
       )
     })
     return <Form onSubmit={this.handleSubmit}>
-        <Row>
-          <Col offset={1}>
-            <p>手动遍历实现动态表单</p>
-          </Col>
-        </Row>
-        <hr />
-        <FormItem label="label " {...formItemLayout}>
-          <InputList dynaacData={this.props.dynaacData} />
-        </FormItem>
-        <Row>
-          <Col offset={1}>
-            <p>ant的动态表单</p>
-          </Col>
-        </Row>
-        <hr />
-        {formItems}
-        <FormItem {...formItemLayoutWithOutLabel}>
-          <Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
-            <Icon type="plus" /> Add field
+      <Row>
+        <Col offset={1}>
+          <p>手动遍历实现动态表单</p>
+        </Col>
+      </Row>
+      <hr />
+      <FormItem label="label " {...formItemLayout}>
+        <InputList dynaacData={this.props.dynaacData} />
+      </FormItem>
+      <Row>
+        <Col offset={1}>
+          <p>ant的动态表单</p>
+        </Col>
+      </Row>
+      <hr />
+      {formItems}
+      <FormItem {...formItemLayoutWithOutLabel}>
+        <Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
+          <Icon type="plus" /> Add field
           </Button>
-        </FormItem>
-        <FormItem {...formItemLayoutWithOutLabel}>
-          <Button type="primary" htmlType="submit">
-            Submit
+      </FormItem>
+      <FormItem {...formItemLayoutWithOutLabel}>
+        <Button type="primary" htmlType="submit">
+          Submit
           </Button>
-        </FormItem>
-      </Form>
+      </FormItem>
+    </Form>
   }
 }
 

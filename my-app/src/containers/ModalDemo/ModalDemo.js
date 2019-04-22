@@ -54,6 +54,7 @@ class ModalDemo extends React.Component {
     const style = { color: "red" };
     return (
       <div>
+        <h2>have a try</h2>
         <Button type="primary" onClick={this.showModal}>
           Open
         </Button>
