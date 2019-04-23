@@ -16,7 +16,7 @@ const appHistory = useRouterHistory(createHashHistory)({ queryKey: false })
 ReactDOM.render(
   //2、将store作为参数传入Provider  provider也是react的一个组件
    <Provider store={store}>
-    <Routes />
+   	 <Routes />
    </Provider>,
   document.getElementById('root')
 )
