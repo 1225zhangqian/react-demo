@@ -3,7 +3,7 @@ import React from "react";
 import { Modal, Button, Dropdown, Menu } from "antd";
 import TreeDemo from "../TreeDemo/TreeDemo";
 import ModalExample from "./ModalExample";
-
+import Notification from '../../components/notification'
 const menu = (
   <Menu>
     <Menu.Item>
@@ -34,9 +34,13 @@ const menu = (
 class ModalDemo extends React.Component {
   state = { visible: false };
   showModal = () => {
-    this.setState({
-      visible: true
-    });
+    // this.setState({
+    //   visible: true
+    // });
+    Notification.open({
+      message: 'dadadaa',
+      content: 'afafsadf'
+    })
   };
   handleOk = e => {
     console.log(e);

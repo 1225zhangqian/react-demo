@@ -15,8 +15,8 @@ const appHistory = useRouterHistory(createHashHistory)({ queryKey: false })
 // start the app，`render` is an enhanced `ReactDOM.render`
 ReactDOM.render(
   //2、将store作为参数传入Provider  provider也是react的一个组件
-   <Provider store={store}>
-   	 <Routes />
-   </Provider>,
+  <Provider store={store}>
+    <Routes />
+  </Provider>,
   document.getElementById('root')
 )

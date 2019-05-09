@@ -1,20 +1,15 @@
-/* eslint react/no-multi-comp: 0, react/prop-types: 0 */
-
 import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 const ModalLocale = {
   okText: "ok",
-  cancelText: "cancel",
-  justOkText: "ok"
+  cancelText: "cancel"
 };
 
 class CommonModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: props.isOpen,
       ModalId: props.ModalId
     };
   }
@@ -63,22 +58,14 @@ class CommonModal extends React.Component {
       this.props.footer === undefined ? (
         defaultFooter
       ) : (
-        <ModalFooter>{this.props.footer}</ModalFooter>
-      );
+          <ModalFooter>{this.props.footer}</ModalFooter>
+        );
     return footer;
   }
   render() {
-    const {
-      footer,
-      visible,
-      wrapClassName,
-      centered,
-      prefixCls,
-      ...restProps
-    } = this.props;
-
+    const prefixCls = this.props.prefixCls || 'IS-';
     return (
-      <Modal {...this.props}>
+      <Modal {...this.props} className={`${prefixCls}modal-wrap`}>
         <ModalHeader toggle={this.toggle}>{this.props.title}</ModalHeader>
         {this.renderModalBody()}
         {this.renderModalFooter()}

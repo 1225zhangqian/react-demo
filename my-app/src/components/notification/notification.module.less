@@ -1,0 +1,154 @@
+@css-prefix: "IS-";
+@notification-prefix-cls: "IS-notification-notice";
+@font-size-base: 14px;
+@font-size-lg: 18px;
+.notificationWrap {
+  .@{notification-prefix-cls} {
+    .reset-component;
+
+    position: fixed;
+    z-index: 9999;
+    width: 350px;
+    max-width: ~"calc(100vw - 32px)";
+    margin-right: 24px;
+
+    &-topLeft,
+    &-bottomLeft {
+      margin-left: 24px;
+      margin-right: 0;
+
+      .@{notification-prefix-cls}-fade-enter.@{notification-prefix-cls}-fade-enter-active,
+      .@{notification-prefix-cls}-fade-appear.@{notification-prefix-cls}-fade-appear-active {
+        animation-name: NotificationLeftFadeIn;
+      }
+    }
+
+    &-close-icon {
+      font-size: @font-size-base;
+      cursor: pointer;
+    }
+
+    &-notice {
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 4px;
+      background: #fff;
+      line-height: 1.5;
+      position: relative;
+      margin-bottom: 10px;
+      overflow: hidden;
+
+      &-message {
+        font-size: @font-size-lg;
+        color: #333;
+        margin-bottom: 8px;
+        line-height: 24px;
+        display: inline-block;
+
+        // https://github.com/ant-design/ant-design/issues/5846#issuecomment-296244140
+        &-single-line-auto-margin {
+          width: ~"calc(300px * 2 - 24px - 48px - 100%)";
+          background-color: transparent;
+          pointer-events: none;
+          display: block;
+          max-width: 4px;
+          &:before {
+            content: "";
+            display: block;
+            padding-bottom: 100%;
+          }
+        }
+      }
+
+      &-description {
+        font-size: @font-size-base;
+      }
+
+      &-closable &-message {
+        padding-right: 24px;
+      }
+
+      &-with-icon &-message {
+        font-size: @font-size-lg;
+        margin-left: 48px;
+        margin-bottom: 4px;
+      }
+
+      &-with-icon &-description {
+        margin-left: 48px;
+        font-size: @font-size-base;
+      }
+
+      &-icon {
+        position: absolute;
+        font-size: 26px;
+        line-height: 24px;
+        margin-left: 4px;
+
+        &-success {
+          color: green;
+        }
+        &-info {
+          color: blue;
+        }
+        &-warning {
+          color: yellow;
+        }
+        &-error {
+          color: red;
+        }
+      }
+
+      &-close {
+        position: absolute;
+        right: 22px;
+        top: 16px;
+        color: #eee;
+        outline: none;
+
+        a&:focus {
+          text-decoration: none;
+        }
+
+        &:hover {
+          color: shade(#eee, 40%);
+        }
+      }
+
+      &-btn {
+        float: right;
+        margin-top: 16px;
+      }
+    }
+
+    .notification-fade-effect {
+      animation-duration: 0.24s;
+      animation-fill-mode: both;
+      // animation-timing-function: @ease-in-out;
+    }
+
+    &-fade-enter,
+    &-fade-appear {
+      opacity: 0;
+      .notification-fade-effect();
+      animation-play-state: paused;
+    }
+
+    &-fade-leave {
+      .notification-fade-effect();
+      animation-duration: 0.2s;
+      animation-play-state: paused;
+    }
+
+    &-fade-enter&-fade-enter-active,
+    &-fade-appear&-fade-appear-active {
+      animation-name: NotificationFadeIn;
+      animation-play-state: running;
+    }
+
+    &-fade-leave&-fade-leave-active {
+      animation-name: NotificationFadeOut;
+      animation-play-state: running;
+    }
+  }
+}

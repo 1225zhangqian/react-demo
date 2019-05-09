@@ -1,7 +1,7 @@
 import Modal from "./CommonModal";
 import confirm from "./CommonConfirmModal";
-
-Modal.info = function(props) {
+import "bootstrap/dist/css/bootstrap.min.css";
+Modal.info = function (props) {
   const config = {
     type: "info",
     iconType: "info-circle",
@@ -11,7 +11,7 @@ Modal.info = function(props) {
   return confirm(config);
 };
 
-Modal.success = function(props) {
+Modal.success = function (props) {
   const config = {
     type: "success",
     iconType: "check-circle",
@@ -21,7 +21,7 @@ Modal.success = function(props) {
   return confirm(config);
 };
 
-Modal.error = function(props) {
+Modal.error = function (props) {
   const config = {
     type: "error",
     iconType: "close-circle",
@@ -31,7 +31,7 @@ Modal.error = function(props) {
   return confirm(config);
 };
 
-Modal.warning = Modal.warn = function(props) {
+Modal.warning = Modal.warn = function (props) {
   const config = {
     type: "warning",
     iconType: "exclamation-circle",
@@ -41,7 +41,7 @@ Modal.warning = Modal.warn = function(props) {
   return confirm(config);
 };
 
-Modal.confirm = function(props) {
+Modal.confirm = function (props) {
   const config = {
     type: "confirm",
     okCancel: true,
