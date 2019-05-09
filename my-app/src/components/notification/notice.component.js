@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import Animate from './animate.component'
 export default class Notice extends Component {
-
+  state = { fadein: true }
   componentDidMount() {
     this.startCloseTimer();
   }
@@ -15,11 +16,13 @@ export default class Notice extends Component {
   componentWillUnmount() {
     this.clearCloseTimer();
   }
-
-  close = (e) => {
+  closeHander = (e) => {
     if (e) {
       e.stopPropagation();
     }
+    this.setState(state => ({ fadein: !state.fadein }));
+  }
+  close = () => {
     this.clearCloseTimer();
     this.props.onClose();
   }
@@ -27,7 +30,7 @@ export default class Notice extends Component {
   startCloseTimer = () => {
     if (this.props.duration) {
       this.closeTimer = setTimeout(() => {
-        this.close();
+        this.closeHander();
       }, this.props.duration * 1000);
     }
   }
@@ -47,19 +50,26 @@ export default class Notice extends Component {
   render() {
     const props = this.props;
     const componentClass = `${props.prefixCls}-notice`;
+
     return (
-      <span className="notificationWrap">
+      <Animate
+        fadein={this.state.fadein}
+        onExited={this.close}
+        className={`${componentClass}`}
+      >
         <div
-          className={`${componentClass} ${componentClass}-closable`}
+          className={`${componentClass} `}
           style={props.style}
           onMouseEnter={this.clearCloseTimer}
           onMouseLeave={this.startCloseTimer}
           onClick={props.onClick}
         >
           <div className={`${componentClass}-content`}>{props.children}</div>
-          <img src="" alt="close" onClick={this.close} />
+          <span tabIndex="0" onClick={this.closeHander} className={`${componentClass}-close`}>
+            {props.closeIcon}
+          </span>
         </div>
-      </span>
+      </Animate >
     );
   }
 }

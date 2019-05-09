@@ -1,154 +1,125 @@
 @css-prefix: "IS-";
-@notification-prefix-cls: "IS-notification-notice";
-@font-size-base: 14px;
-@font-size-lg: 18px;
-.notificationWrap {
-  .@{notification-prefix-cls} {
-    .reset-component;
-
-    position: fixed;
-    z-index: 9999;
-    width: 350px;
-    max-width: ~"calc(100vw - 32px)";
-    margin-right: 24px;
-
-    &-topLeft,
-    &-bottomLeft {
-      margin-left: 24px;
-      margin-right: 0;
-
-      .@{notification-prefix-cls}-fade-enter.@{notification-prefix-cls}-fade-enter-active,
-      .@{notification-prefix-cls}-fade-appear.@{notification-prefix-cls}-fade-appear-active {
-        animation-name: NotificationLeftFadeIn;
-      }
-    }
-
-    &-close-icon {
-      font-size: @font-size-base;
+@notification-prefix-cls: ~"@{ant-prefix}-notification";
+@notification-width: 384px;
+@notification-padding-vertical: 16px;
+@notification-padding-horizontal: 24px;
+@notification-padding: @notification-padding-vertical
+  @notification-padding-horizontal;
+@notification-margin-bottom: 16px;
+@fontPrimarySize: "14PX";
+.@{notification-prefix-cls} {
+  position: fixed;
+  z-index: 9999;
+  width: @notification-width;
+  max-width: calc(100vw - 32px);
+  margin-right: 24px;
+  color: rgba(0, 0, 0, 0.65);
+  &-notice {
+    position: relative;
+    margin-bottom: 16px;
+    overflow: hidden;
+    line-height: 1.5;
+    background: #fff;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    &-close {
+      position: absolute;
+      top: 16px;
+      right: 22px;
+      color: rgba(0, 0, 0, 0.45);
       cursor: pointer;
+      outline: none;
     }
-
-    &-notice {
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 4px;
-      background: #fff;
-      line-height: 1.5;
-      position: relative;
-      margin-bottom: 10px;
-      overflow: hidden;
-
-      &-message {
-        font-size: @font-size-lg;
-        color: #333;
-        margin-bottom: 8px;
-        line-height: 24px;
-        display: inline-block;
-
-        // https://github.com/ant-design/ant-design/issues/5846#issuecomment-296244140
-        &-single-line-auto-margin {
-          width: ~"calc(300px * 2 - 24px - 48px - 100%)";
-          background-color: transparent;
-          pointer-events: none;
-          display: block;
-          max-width: 4px;
-          &:before {
-            content: "";
-            display: block;
-            padding-bottom: 100%;
-          }
-        }
-      }
-
-      &-description {
-        font-size: @font-size-base;
-      }
-
-      &-closable &-message {
-        padding-right: 24px;
-      }
-
-      &-with-icon &-message {
-        font-size: @font-size-lg;
-        margin-left: 48px;
+    &-content {
+      padding: 16px 24px;
+    }
+    &-message {
+      display: inline-block;
+      padding-right: 24px;
+      margin-bottom: 8px;
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 16px;
+      line-height: 24px;
+    }
+    &-description {
+      font-size: @fontPrimarySize;
+    }
+    &-with-icon {
+      .@{notification-prefix-cls}-notice-message,
+      .@{notification-prefix-cls}-notice-description {
         margin-bottom: 4px;
-      }
-
-      &-with-icon &-description {
         margin-left: 48px;
-        font-size: @font-size-base;
-      }
-
-      &-icon {
-        position: absolute;
-        font-size: 26px;
-        line-height: 24px;
-        margin-left: 4px;
-
-        &-success {
-          color: green;
-        }
-        &-info {
-          color: blue;
-        }
-        &-warning {
-          color: yellow;
-        }
-        &-error {
-          color: red;
-        }
-      }
-
-      &-close {
-        position: absolute;
-        right: 22px;
-        top: 16px;
-        color: #eee;
-        outline: none;
-
-        a&:focus {
-          text-decoration: none;
-        }
-
-        &:hover {
-          color: shade(#eee, 40%);
-        }
-      }
-
-      &-btn {
-        float: right;
-        margin-top: 16px;
+        font-size: 16px;
       }
     }
-
-    .notification-fade-effect {
-      animation-duration: 0.24s;
-      animation-fill-mode: both;
-      // animation-timing-function: @ease-in-out;
+    &-icon {
+      position: absolute;
+      margin-left: 4px;
+      height: 24px;
+      width: 24px;
+      font-size: 24px;
+      line-height: 24px;
     }
-
-    &-fade-enter,
-    &-fade-appear {
-      opacity: 0;
-      .notification-fade-effect();
-      animation-play-state: paused;
-    }
-
-    &-fade-leave {
-      .notification-fade-effect();
-      animation-duration: 0.2s;
-      animation-play-state: paused;
-    }
-
-    &-fade-enter&-fade-enter-active,
-    &-fade-appear&-fade-appear-active {
+  }
+  &-notice-fade {
+    animation-duration: 3s;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+  }
+  &-topRight,
+  &-bottomRight {
+    .@{notification-prefix-cls}-notice-bouncein-enter {
       animation-name: NotificationFadeIn;
       animation-play-state: running;
     }
-
-    &-fade-leave&-fade-leave-active {
-      animation-name: NotificationFadeOut;
+  }
+  &-topLeft,
+  &-bottomLeft {
+    .@{notification-prefix-cls}-notice-bouncein-enter {
+      animation-name: NotificationLeftFadeIn;
       animation-play-state: running;
+    }
+  }
+  &-notice-fadeout {
+    animation-name: NotificationFadeOut;
+    animation-play-state: running;
+  }
+
+  @keyframes NotificationFadeIn {
+    0% {
+      opacity: 0;
+      left: @notification-width;
+    }
+    100% {
+      left: 0;
+      opacity: 1;
+    }
+  }
+  @keyframes NotificationLeftFadeIn {
+    0% {
+      opacity: 0;
+      right: @notification-width;
+    }
+    100% {
+      right: 0;
+      opacity: 1;
+    }
+  }
+  @keyframes NotificationFadeOut {
+    0% {
+      opacity: 1;
+      margin-bottom: @notification-margin-bottom;
+      padding-top: @notification-padding;
+      padding-bottom: @notification-padding;
+      max-height: 150px;
+    }
+    100% {
+      opacity: 0;
+      margin-bottom: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      max-height: 0;
     }
   }
 }

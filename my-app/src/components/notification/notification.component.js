@@ -1,111 +1,135 @@
 import React from "react";
 import * as ReactDOM from "react-dom";
 import Notice from './notice.component'
-const typeToIcon = {
-  warning: '../images/alert-outlinesvg.svg'
-}
-let defaultDuration = 4.5;
-let defaultTop = 24;
-let defaultBottom = 24;
 
-const getPlacementStyle = (placement) => {
-  let style;
-  switch (placement) {
-    case 'topLeft':
-      style = {
-        left: 0,
-        top: defaultTop,
-        bottom: 'auto',
-      };
-      break;
-    case 'topRight':
-      style = {
-        right: 0,
-        top: defaultTop,
-        bottom: 'auto',
-      };
-      break;
-    case 'bottomLeft':
-      style = {
-        left: 0,
-        top: 'auto',
-        bottom: defaultBottom,
-      };
-      break;
-    default:
-      style = {
-        right: 0,
-        top: 'auto',
-        bottom: defaultBottom,
-      };
-      break;
-  }
-  return style;
-}
-
-const NotificationRender = (props) => {
-  const outerPrefixCls = props.prefixCls || 'IS-notification';
-  const prefixCls = `${outerPrefixCls}-notice`;
-
-  let iconNode = null;
-  if (props.icon) {
-    iconNode = (
-      <span className={`${prefixCls}-icon`}>
-        {props.icon}
-      </span>
-    );
-  } else if (props.type) {
-    const iconType = typeToIcon[props.type];
-    iconNode = (
-      <img
-        className={`${prefixCls}-icon`}
-        src={iconType} alt="icon"
-      />
-    );
+function createChainedFunction() {
+  const args = [].slice.call(arguments, 0);
+  if (args.length === 1) {
+    return args[0];
   }
 
-  let content = null;
-  content = (
-    <div className={iconNode ? `${prefixCls}-with-icon` : ''} style={getPlacementStyle(props.placement)}>
-      {iconNode}
-      <div className={`${prefixCls}-message`}>
-        {props.message}
-      </div>
-      <div className={`${prefixCls}-description`}>{props.description}</div>
-      {props.btn ? <span className={`${prefixCls}-btn`}>{props.btn}</span> : null}
-    </div>
-  )
-
-  return content;
-}
-
-const open = (props) => {
-  const div = document.createElement("div");
-  document.body.appendChild(div);
-  const prefixCls = props.prefixCls || 'IS-notification';
-  const duration = props.duration === undefined ? defaultDuration : props.duration;
-  let currentProps = {
-    ...props,
-    prefixCls,
-    duration,
-    onClose: close
-  };
-  function close() {
-    const unmountResult = ReactDOM.unmountComponentAtNode(div);
-    if (unmountResult && div.parentNode) {
-      div.parentNode.removeChild(div);
+  return function chainedFunction() {
+    for (let i = 0; i < args.length; i++) {
+      if (args[i] && args[i].apply) {
+        args[i].apply(this, arguments);
+      }
     }
-  }
-  function render(props) {
-    ReactDOM.render(<Notice {...props}>
-      <NotificationRender {...props} />
-    </Notice>, div);
+  };
+}
+let seed = 0;
+const now = Date.now();
+function getUuid() {
+  return `rcNotification_${now}_${seed++}`;
+}
+class Notification extends React.Component {
+
+  static defaultProps = {
+    prefixCls: 'IS-notification',
+    animation: 'fade',
+  };
+
+  state = {
+    notices: [],
+  };
+
+  getTransitionName() {
+    const props = this.props;
+    let transitionName = props.transitionName;
+    if (!transitionName && props.animation) {
+      transitionName = `${props.prefixCls}-${props.animation}`;
+    }
+    return transitionName;
   }
 
-  render(currentProps);
+  add = (notice) => {
+    const key = notice.key = notice.key || getUuid();
+    const { maxCount } = this.props;
+    this.setState(previousState => {
+      const notices = previousState.notices;
+      const noticeIndex = notices.map(v => v.key).indexOf(key);
+      const updatedNotices = notices.concat();
+      if (noticeIndex !== -1) {
+        updatedNotices.splice(noticeIndex, 1, notice);
+      } else {
+        if (maxCount && notices.length >= maxCount) {
+          // XXX, use key of first item to update new added (let React to move exsiting
+          // instead of remove and mount). Same key was used before for both a) external
+          // manual control and b) internal react 'key' prop , which is not that good.
+          notice.updateKey = updatedNotices[0].updateKey || updatedNotices[0].key;
+          updatedNotices.shift();
+        }
+        updatedNotices.push(notice);
+      }
+      return {
+        notices: updatedNotices,
+      };
+    });
+  }
+
+  remove = (key) => {
+    this.setState(previousState => {
+      return {
+        notices: previousState.notices.filter(notice => notice.key !== key),
+      };
+    });
+  }
+
+  render() {
+    const props = this.props;
+    const { notices } = this.state;
+    const noticeNodes = notices.map((notice, index) => {
+      const update = Boolean(index === notices.length - 1 && notice.updateKey);
+      const key = notice.updateKey ? notice.updateKey : notice.key;
+      const onClose = createChainedFunction(this.remove.bind(this, notice.key), notice.onClose);
+      return (<Notice
+        prefixCls={props.prefixCls}
+        {...notice}
+        key={key}
+        update={update}
+        onClose={onClose}
+        onClick={notice.onClick}
+        closeIcon={props.closeIcon}
+      >
+        {notice.content}
+      </Notice>);
+    });
+    return (
+      <div className={`${props.prefixCls} ${props.className}`} style={props.style}>
+        <div className={this.getTransitionName()}>{noticeNodes}</div>
+      </div>
+    );
+  }
 }
-const Notification = {
-  open: (props) => open({ ...props })
+Notification.newInstance = function newNotificationInstance(properties, callback) {
+  const { getContainer, ...props } = properties || {};
+  const div = document.createElement('div');
+  if (getContainer) {
+    const root = getContainer();
+    root.appendChild(div);
+  } else {
+    document.body.appendChild(div);
+  }
+  let called = false;
+  function ref(notification) {
+    if (called) {
+      return;
+    }
+    called = true;
+    callback({
+      notice(noticeProps) {
+        notification.add(noticeProps);
+      },
+      removeNotice(key) {
+        notification.remove(key);
+      },
+      component: notification,
+      destroy() {
+        ReactDOM.unmountComponentAtNode(div);
+        div.parentNode.removeChild(div);
+      },
+    });
+  }
+  ReactDOM.render(<Notification {...props} ref={ref} />, div);
 };
 
 export default Notification;
