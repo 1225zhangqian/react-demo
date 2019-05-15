@@ -1,7 +1,7 @@
 import React from "react";
 import * as ReactDOM from "react-dom";
 import Notice from './notice.component'
-import styles from './notification.modules.less'
+// import styles from './notification.modules.less'
 function createChainedFunction() {
   const args = [].slice.call(arguments, 0);
   if (args.length === 1) {
