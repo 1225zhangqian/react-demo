@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Routes from './routes'
+import Routes from './containers/App/routes'
 import './styles/index.less'
 /* 1、导入Provider react-redux的文件中没有指定default输出，所以添加大括号 */
 import { Provider } from 'react-redux'
