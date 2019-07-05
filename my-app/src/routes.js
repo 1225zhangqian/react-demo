@@ -8,21 +8,29 @@ import TreeDemo from './containers/TreeDemo/TreeDemo'
 import ModalDemo from './containers/ModalDemo/ModalDemo'
 import TableDemo from './containers/TableDemo/TableDemo'
 import MenuDemo from './containers/MenuDemo/MenuDemo'
+import Algorithm from './containers/Algorithm'
 // import TodoListDemo from './containers/TodoListDemo/TodoListDemo'
 
 const routes = [
   {
     path: '/home',
     exact: true,//当路径与path完全匹配的时候才会显示，默认为false，若为false，则显示子路由的时候，头部会展示
-    name: '路由',
-    Breadcrumb: () => <span>路由</span>,
-    main: () => <RouterDemo />,
+    name: 'home',
+    Breadcrumb: () => <span>home</span>,
+    main: () => <Algorithm />,
     iconType: 'user'
   },
   {
+    path: '/home/Algorithm',
+    Breadcrumb: () => <span>Algorithm</span>,
+    name: 'Algorithm',
+    main: () => <Algorithm />,
+    iconType: 'video-camera'
+  },
+  {
     path: '/home/RouterDemo',
-    Breadcrumb: () => <span>路由</span>,
-    name: '路由',
+    Breadcrumb: () => <span>router</span>,
+    name: 'router',
     main: () => <RouterDemo />,
     iconType: 'video-camera'
   },

@@ -19,7 +19,7 @@ class App extends Component {
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
           {routes.map((n, i) => {
             return (
-              <Menu.Item key={i}>
+              !!i && <Menu.Item key={i}>
                 <Icon type={n.iconType} />
                 <span className="nav-text">
                   <Link to={n.path}>{n.name}</Link>
