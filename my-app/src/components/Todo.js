@@ -12,7 +12,7 @@ const Todo = ({ onClick, completed, text }) => (
   </li>
 );
 /* 使用 PropTypes 进行类型检查 */
-Todo.PropTypes = {
+Todo.propTypes = {
   onClick: PropTypes.func.isRequired,
   completed: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired

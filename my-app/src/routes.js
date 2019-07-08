@@ -9,7 +9,7 @@ import ModalDemo from './containers/ModalDemo/ModalDemo'
 import TableDemo from './containers/TableDemo/TableDemo'
 import MenuDemo from './containers/MenuDemo/MenuDemo'
 import Algorithm from './containers/Algorithm'
-// import TodoListDemo from './containers/TodoListDemo/TodoListDemo'
+import TodoListDemo from './containers/TodoListDemo/TodoListDemo'
 
 const routes = [
   {
@@ -88,11 +88,12 @@ const routes = [
     Breadcrumb: () => <span>MenuDemo</span>,
     main: () => <MenuDemo />,
     iconType: 'user'
+  },
+  {
+    path: '/TodoListDemo',
+    name: 'TodoListDemo',
+    Breadcrumb: () => <span>TodoListDemo</span>,
+    main: () => <TodoListDemo />
   }
-  // {
-  //   path: '/TodoListDemo',
-  //   Breadcrumb: () => <span>TodoListDemo</span>,
-  //   main: () => <TodoListDemo />
-  // }
 ]
 export default routes
