@@ -10,7 +10,7 @@ import TableDemo from './containers/TableDemo/TableDemo'
 import MenuDemo from './containers/MenuDemo/MenuDemo'
 import Algorithm from './containers/Algorithm'
 import TodoListDemo from './containers/TodoListDemo/TodoListDemo'
-
+import MyTodoList from './containers/MyTodoList'
 const routes = [
   {
     path: '/home',
@@ -94,6 +94,12 @@ const routes = [
     name: 'TodoListDemo',
     Breadcrumb: () => <span>TodoListDemo</span>,
     main: () => <TodoListDemo />
+  },
+  {
+    path: '/MyTodoList',
+    name: 'MyTodoList',
+    Breadcrumb: () => <span>MyTodoList</span>,
+    main: () => <MyTodoList />
   }
 ]
 export default routes
