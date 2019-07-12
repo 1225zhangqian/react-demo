@@ -80,7 +80,8 @@ const routes = [
     path: '/TableDemo',
     name: 'TableDemo',
     Breadcrumb: () => <span>TableDemo</span>,
-    main: () => <TableDemo />
+    main: () => <TableDemo />,
+    iconType: 'user'
   },
   {
     path: '/MenuDemo',
@@ -93,13 +94,15 @@ const routes = [
     path: '/TodoListDemo',
     name: 'TodoListDemo',
     Breadcrumb: () => <span>TodoListDemo</span>,
-    main: () => <TodoListDemo />
+    main: () => <TodoListDemo />,
+    iconType: 'user'
   },
   {
     path: '/MyTodoList',
     name: 'MyTodoList',
     Breadcrumb: () => <span>MyTodoList</span>,
-    main: () => <MyTodoList />
+    main: () => <MyTodoList />,
+    iconType: 'user'
   }
 ]
 export default routes

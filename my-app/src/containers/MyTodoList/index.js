@@ -1,13 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { dataList } from './data'
 import List from './list'
 import Detail from './detail'
 const MyTodoList = () => {
   const [mode, setMode] = useState('view');
+  const [currentTitle, setCurrentTitle] = useState('');
+  const [currentCount, updateCurrentCount] = useState(1)
+  useEffect(() => {
+    updateCurrentCount(dataList.length)
+  }, [])
   return (
-    <div>
-      {mode === 'view' ? <List></List> :
-        <Detail setMode={() => setMode('view')}></Detail>}
-      <div onClick={() => setMode('add')}>新增</div>
-    </div>)
+    < div >
+      {mode === 'view' ?
+        <> <List setMode={setMode} setCurrentTitle={setCurrentTitle}></List>
+          <div onClick={() => { setMode('add'); setCurrentTitle('') }} >新增</div>
+        </>
+        :
+        <Detail
+          setMode={setMode}
+          currentTitle={currentTitle}
+          currentCount={currentCount}
+          updateCurrentCount={updateCurrentCount}></Detail>}
+
+    </div >)
 }
 export default MyTodoList
