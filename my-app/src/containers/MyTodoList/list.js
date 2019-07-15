@@ -8,13 +8,8 @@ const List = props => {
     updateData(dataList.filter(i => i.title.includes(e.target.value)))
   }
   const deleteHandle = (i) => {
-    dataList.map(n => {
-      if (n.id === i.id) {
-        console.log(n.id)
-      }
-    })
-
-    console.log(dataList)
+    dataList.splice(dataList.findIndex(item => item.id === i.id), 1)
+    updateData(dataList.filter(n => n.id !== i.id))
   }
   const editHandle = (i) => {
     props.setCurrentTitle(i)
