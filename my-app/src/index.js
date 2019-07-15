@@ -6,6 +6,7 @@ import './styles/index.less'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import todoApp from './reducer/todoApp'
+
 let store = createStore(todoApp)
 
 //去掉传参字符串的显示
