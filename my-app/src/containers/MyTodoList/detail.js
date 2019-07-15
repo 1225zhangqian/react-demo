@@ -15,7 +15,6 @@ const Detail = props => {
       dataList.push({ id: count, title })
       props.updateCurrentCount(count)
     }
-
     props.setMode('view')
   }
   return (<div>
