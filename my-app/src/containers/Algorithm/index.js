@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 class Algorithm extends Component {
   state = {
     result: '',
-    result2: ''
+    result2: '',
+    result3: ''
   }
   findDuplicateByHashMap = nums => {
     let ret = []
@@ -45,6 +46,20 @@ class Algorithm extends Component {
     })
     return count
   }
+  // 判断是否为奇数
+  isEven = num => num % 2 !== 0
+  // 求二倍数
+  double = num => num * 2
+  // 求和
+  add = (sum, num) => sum += num
+  // 遍历数组求累加和
+  magic = (sum, num) => {
+    if (this.isEven(num)) {
+      sum = this.add(sum, this.double(num))
+    }
+    return sum
+  }
+
   getResultHandler = (type, arr) => {
     switch (type) {
       case 1:
@@ -55,8 +70,15 @@ class Algorithm extends Component {
         let result2 = this.findDuplicateByBinary(arr)
         this.setState({ result2 })
         break;
+      case 3:
+        let result3 = arr.reduce((sum, num) => this.magic(sum, num), 0)
+        // let result3 = arr.reduce((sum, num) => this.isEven(num) ? this.add(sum, this.double(num)) : sum, 0)
+        this.setState({ result3 })
+        break;
       default: return;
     }
+
+
   }
   render() {
     return <div>
@@ -66,10 +88,15 @@ class Algorithm extends Component {
       <p>arr=[1,3,2,4,2,3,1,4,5]</p>
       <button onClick={() => this.getResultHandler(1, [1, 3, 2, 4, 2, 3, 1, 4, 5])}>result</button>
       <p>{this.state.result}</p>
-      <p>1.Binary Search</p>
+      <p>2.Binary Search</p>
       <p>arr=[1,3,2,8,5,6,1,4,5]</p>
       <button onClick={() => this.getResultHandler(2, [1, 3, 2, 8, 5, 6, 1, 4, 5])}>result</button>
       <p>{this.state.result2}</p>
+      <p>2.filter map reduce</p>
+      <p>求数组中的奇数的2倍数累加和</p>
+      <p>arr=[1,3,2,8,5,6,1,4,5]</p>
+      <button onClick={() => this.getResultHandler(3, [1, 2, 3, 4, 5, 6, 7, 8, 9])}>result</button>
+      <p>{this.state.result3}</p>
     </div>
   }
 }
