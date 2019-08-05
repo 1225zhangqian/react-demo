@@ -13,7 +13,7 @@ const MyTodoList = () => {
     < div >
       {mode === 'view' ?
         <> <List setMode={setMode} setCurrentTitle={setCurrentTitle}></List>
-          <div onClick={() => { setMode('add'); setCurrentTitle('') }} >新增</div>
+          <button onClick={() => { setMode('add'); setCurrentTitle('') }} >新增</button>
         </>
         :
         <Detail

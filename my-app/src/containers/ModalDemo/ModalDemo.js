@@ -34,9 +34,9 @@ const menu = (
 class ModalDemo extends React.Component {
   state = { visible: false };
   showModal = () => {
-    // this.setState({
-    //   visible: true
-    // });
+    this.setState({
+      visible: true
+    });
     Notification.open({
       message: 'dadadaa',
       content: 'afafsadf'

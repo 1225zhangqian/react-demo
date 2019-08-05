@@ -27,9 +27,6 @@ describe('test Notification.js', () => {
             visible: true
         }
         com.instance().showModal();
-        // Object.keys(state).forEach(item => {
-        //     expect(com.state()[item]).toEqual(state[item])
-        // })
         expect(com.state().visible).toEqual(state.visible)
     })
 

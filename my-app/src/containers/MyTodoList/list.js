@@ -19,7 +19,7 @@ const List = props => {
 
   return (
     <div>
-      <input onChange={dataFilter} />
+      <input placeholder="查询" onChange={dataFilter} />
       <ul>
         {data.map(i => <li key={i.id}>{i.title}
           <span onClick={() => deleteHandle(i)}>删除</span><span onClick={() => editHandle(i)}>编辑</span>
