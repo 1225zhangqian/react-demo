@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Link = ({ active, children, setVisibilityFilter }) => {
+const Link = (props) => {
+  console.log(props)
+  const { active, children, setVisibilityFilter, filter } = props
   if (active) {
     return <span>{children}</span>;
   }
@@ -11,7 +13,8 @@ const Link = ({ active, children, setVisibilityFilter }) => {
       href="#"
       onClick={e => {
         e.preventDefault();
-        setVisibilityFilter();
+        // this.props.setVisibilityFilter()
+        setVisibilityFilter(filter);
       }}
     >
       {children}

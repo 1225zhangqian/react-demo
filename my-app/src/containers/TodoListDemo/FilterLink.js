@@ -17,15 +17,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//   return bindActionCreators({
-//     setVisibilityFilter: setVisibilityFilter(ownProps.filter)
-//   }, dispatch)
-// }
 
 const FilterLink = connect(
   mapStateToProps,
-  mapDispatchToProps
+  //   如果mapDispatchToProps是一个函数, 并且传入ownProps, 当组件获取新的props的时候，mapDispatchToProps也会被调用.
+  // 传入一个object，其中这个object所对应的value必须是actionCreator，这样redux里面会自动帮我们调用bindActionCreator，所以上面又可以变成
+  { setVisibilityFilter }
+  // mapDispatchToProps
 )(Link)
 
 export default FilterLink
