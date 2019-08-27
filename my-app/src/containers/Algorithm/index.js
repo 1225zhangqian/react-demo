@@ -1,5 +1,14 @@
 import React, { Component } from 'react'
-
+// es5实现数组的map方法
+// Array.prototype.MyMap = function (fn, context) {
+//   var arr = Array.prototype.slice.call(this);
+//   var mapperdArr = []
+//   for (var i = 0; i < arr.length; i++) {
+//     if (!arr.hasOwnProperty(i)) continue;
+//     mapperdArr.push(fn.call(context, arr[i], this));
+//     return mapperdArr
+//   }
+// }
 class Algorithm extends Component {
   state = {
     result: '',
