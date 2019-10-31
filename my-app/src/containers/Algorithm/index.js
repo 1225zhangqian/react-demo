@@ -69,6 +69,40 @@ class Algorithm extends Component {
     return sum
   }
 
+  // 比较两个对象是否相等
+  equalsObj = (obj1, obj2) => {
+    // 指向同一内存时
+    let x = obj1 instanceof Object;
+    let y = obj2 instanceof Object;
+    if (!f1 || !f2) {
+      return x === y
+    }
+    else if ((typeof x == "object" && x != null) && (typeof y == "object" && y != null)) {
+      if (Object.keys(x).length != Object.keys(y).length)
+        return false;
+      for (var prop in x) {
+        if (y.hasOwnProperty(prop)) {
+          if (!deepEqual(x[prop], y[prop]))
+            return false;
+        }
+        else
+          return false;
+      }
+      return true;
+    }
+    else
+      return false;
+  }
+
+
+  // 替换数组中相同的某个对象，并置顶
+  changPositionIndex = (arr, obj) => {
+    arr.filter(i => i !== obj)
+    arr.unshift(obj)
+  }
+
+  // 实现对象的深度拷贝
+
   getResultHandler = (type, arr) => {
     switch (type) {
       case 1:
