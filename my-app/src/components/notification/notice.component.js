@@ -50,7 +50,6 @@ export default class Notice extends Component {
   render() {
     const props = this.props;
     const componentClass = `${props.prefixCls}-notice`;
-
     return (
       <Animate
         fadein={this.state.fadein}
@@ -62,7 +61,6 @@ export default class Notice extends Component {
           style={props.style}
           onMouseEnter={this.clearCloseTimer}
           onMouseLeave={this.startCloseTimer}
-          onClick={props.onClick}
         >
           <div className={`${componentClass}-content`}>{props.children}</div>
           <span tabIndex="0" onClick={this.closeHander} className={`${componentClass}-close`}>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Icon, Switch, Button, Checkbox, Popover, Dropdown } from 'antd'
+import { Menu, Icon, Switch, Checkbox, Popover, Dropdown } from 'antd'
 import './MenuDemo.css'
 const { SubMenu } = Menu
 class MenuDemo extends React.Component {
@@ -128,9 +128,9 @@ class MenuDemo extends React.Component {
           onVisibleChange={this.handleVisibleChange}
           visible={this.state.visible}
         >
-          <a className="ant-dropdown-link" href="#">
+          <span className="ant-dropdown-link"  >
             Hover me <Icon type="down" />
-          </a>
+          </span>
         </Dropdown>
       </div>
     )

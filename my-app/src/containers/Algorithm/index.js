@@ -74,15 +74,15 @@ class Algorithm extends Component {
     // 指向同一内存时
     let x = obj1 instanceof Object;
     let y = obj2 instanceof Object;
-    if (!f1 || !f2) {
+    if (!x || !y) {
       return x === y
     }
-    else if ((typeof x == "object" && x != null) && (typeof y == "object" && y != null)) {
-      if (Object.keys(x).length != Object.keys(y).length)
+    else if ((typeof x === "object" && x !== null) && (typeof y == "object" && y != null)) {
+      if (Object.keys(x).length !== Object.keys(y).length)
         return false;
       for (var prop in x) {
         if (y.hasOwnProperty(prop)) {
-          if (!deepEqual(x[prop], y[prop]))
+          if (!this.equalsObj(x[prop], y[prop]))
             return false;
         }
         else

@@ -8,6 +8,12 @@ const typeToIcon = {
   info: '../images/info-icon.svg',
   error: '../images/error-icon.svg'
 }
+const typeToColor = {
+  warning: '#faad14',
+  success: '#52c41a',
+  info: '#fff',
+  error: '#f5222d'
+}
 let defaultDuration = 4.5;
 let defaultTop = '24px';
 let defaultBottom = '24px';
@@ -58,8 +64,8 @@ const getPlacementStyle = (placement) => {
     default:
       style = {
         right: 0,
-        top: 'auto',
-        bottom: defaultBottom,
+        top: defaultTop,
+        bottom: 'auto',
       };
       break;
   }
@@ -76,7 +82,7 @@ const getNotificationInstance = (prefixCls, placement = defaultPlacement, callba
     className: placement ? `${prefixCls}-${placement}` : '',
     style: getPlacementStyle(placement),
     getContainer: defaultGetContainer,
-    closeIcon: <img src='/images/close-icon.svg' alt='close' />,
+    closeIcon: <span>×</span>,
   }, (notification) => {
     notificationInstance[cacheKey] = notification;
     callback(notification);
@@ -103,9 +109,13 @@ const notice = (props) => {
       />
     );
   }
-
+  let style = { background: '#FFF' }
+  if (props.type) {
+    style = { background: typeToColor[props.type] }
+    style = props.style ? Object.assign(style, props.style) : style
+  }
   let content = (
-    <div className={iconNode ? `${prefixCls}-with-icon` : ''}>
+    <div className={iconNode ? `${prefixCls}-with-icon  ${prefixCls}-with-${props.type}` : `${prefixCls}-with-${props.type}`} onClick={props.onClick}>
       {iconNode}
       <div className={`${prefixCls}-message`}>
         {props.message}
@@ -117,12 +127,12 @@ const notice = (props) => {
 
   getNotificationInstance(outerPrefixCls, props.placement, notification => {
     notification.notice({
-      content: content,
+      content,
       duration,
       closable: true,
       onClose: props.onClose,
       key: props.key,
-      style: props.style || {},
+      style: style || {},
       className: props.className,
     });
   });

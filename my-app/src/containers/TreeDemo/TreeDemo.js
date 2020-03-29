@@ -82,9 +82,9 @@ function MyDropdown() {
 
   return (
     <Dropdown overlay={menu}>
-      <a className="ant-dropdown-link" href="#">
+      <span className="ant-dropdown-link"  >
         Hover me <Icon type="down" />
-      </a>
+      </span>
     </Dropdown>
   )
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-
 const ModalLocale = {
   okText: "ok",
   cancelText: "cancel"
@@ -64,8 +63,9 @@ class CommonModal extends React.Component {
   }
   render() {
     const prefixCls = this.props.prefixCls || 'IS-';
+    const { onCancel, onOk, close, onClose, ...restProps } = this.props
     return (
-      <Modal {...this.props} className={`${prefixCls}modal-wrap`}>
+      <Modal {...restProps} className={`${prefixCls}modal-wrap`}>
         <ModalHeader toggle={this.toggle}>{this.props.title}</ModalHeader>
         {this.renderModalBody()}
         {this.renderModalFooter()}

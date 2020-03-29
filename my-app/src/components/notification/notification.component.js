@@ -1,9 +1,9 @@
 import React from "react";
 import * as ReactDOM from "react-dom";
 import Notice from './notice.component'
-// import styles from './notification.modules.less'
+
 function createChainedFunction() {
-  const args = [].slice.call(arguments, 0);
+  const args = [].slice.call(arguments);
   if (args.length === 1) {
     return args[0];
   }
@@ -11,7 +11,11 @@ function createChainedFunction() {
   return function chainedFunction() {
     for (let i = 0; i < args.length; i++) {
       if (args[i] && args[i].apply) {
-        args[i].apply(this, arguments);
+        try {
+          args[i].apply(this, arguments);
+        } catch (error) {
+          console.log(error)
+        }
       }
     }
   };

@@ -4,15 +4,15 @@ import Dynaactionform from '../Dynaactionform/Dynaactionform'
 
 function NumberList(props) {
   const dynaacData = props.dynaacData
-  if (dynaacData){
+  if (dynaacData) {
     const listItems = dynaacData.map(temp => (
       <li key={temp.id}>{temp.val}</li>
     ))
     return <div><ul>{listItems}</ul></div>
-  }else{
+  } else {
     return <p>nodata</p>
   }
-} 
+}
 class DynnactionList extends React.Component {
   constructor(props) {
     super(props)
@@ -38,12 +38,12 @@ class DynnactionList extends React.Component {
   handleEdit = i => {
     let tempList = []
     const data = this.state.data
-    data.map(
-      temp =>{
-          if (i === temp.id) {
-            tempList = temp.item
-          }
+    data.forEach(
+      temp => {
+        if (i === temp.id) {
+          tempList = temp.item
         }
+      }
     )
     this.setState({ dynaacData: tempList })
   }
@@ -72,7 +72,7 @@ class DynnactionList extends React.Component {
           </Col>
           <Col span={12}>
             <NumberList dynaacData={this.state.dynaacData} />
-            <Dynaactionform dynaacData={this.state.dynaacData}/>
+            <Dynaactionform dynaacData={this.state.dynaacData} />
           </Col>
         </Row>
       </div>
