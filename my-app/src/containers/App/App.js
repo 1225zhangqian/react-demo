@@ -20,10 +20,7 @@ class App extends Component {
           {routes.map((n, i) => {
             return (
               !!i && <Menu.Item key={i}>
-                <Icon type={n.iconType} />
-                <span className="nav-text">
-                  <Link to={n.path}>{n.name}</Link>
-                </span>
+                <Link to={n.path}><Icon type={n.iconType} />{n.name}</Link>
               </Menu.Item>
             )
           })}
