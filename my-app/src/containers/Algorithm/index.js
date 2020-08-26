@@ -13,7 +13,8 @@ class Algorithm extends Component {
   state = {
     result: '',
     result2: '',
-    result3: ''
+    result3: '',
+    result4: ''
   }
   findDuplicateByHashMap = nums => {
     let ret = []
@@ -118,11 +119,23 @@ class Algorithm extends Component {
         // let result3 = arr.reduce((sum, num) => this.isEven(num) ? this.add(sum, this.double(num)) : sum, 0)
         this.setState({ result3 })
         break;
+      case 4:
+        let result4 = this.missingNumber(arr)
+        this.setState({ result4 })
+        break;
       default: return;
     }
-
-
   }
+  missingNumber = (nums) => {
+    let missingNumber = -1
+    for (let i = 0; i <= nums.length; i++) {
+      if (nums[i] !== i) {
+        missingNumber = i
+        break;
+      }
+    }
+    return missingNumber === -1 ? nums.length : missingNumber
+  };
   render() {
     return <div>
       <a href='https://juejin.im/entry/5d1bfc146fb9a07edf275f48?utm_source=gold_browser_extension'>一组有关算法的练习</a>
@@ -137,9 +150,13 @@ class Algorithm extends Component {
       <p>{this.state.result2}</p>
       <p>2.filter map reduce</p>
       <p>求数组中的奇数的2倍数累加和</p>
-      <p>arr=[1,3,2,8,5,6,1,4,5]</p>
+      <p>arr=[1, 2, 3, 4, 5, 6, 7, 8, 9]</p>
       <button onClick={() => this.getResultHandler(3, [1, 2, 3, 4, 5, 6, 7, 8, 9])}>result</button>
       <p>{this.state.result3}</p>
+      <p>一个长度为n-1的递增排序数组中的所有数字都是唯一的，并且每个数字都在范围0～n-1之内。在范围0～n-1内的n个数字中有且只有一个数字不在该数组中，请找出这个数字。</p>
+      <p>[0,1,3]</p>
+      <button onClick={() => this.getResultHandler(4, [0, 1, 3])}>result</button>
+      <p>{this.state.result4}</p>
     </div>
   }
 }
