@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 // es5实现数组的map方法
 // Array.prototype.MyMap = function (fn, context) {
+//  运用silce转化类数组
 //   var arr = Array.prototype.slice.call(this);
 //   var mapperdArr = []
 //   for (var i = 0; i < arr.length; i++) {
@@ -9,12 +10,37 @@ import React, { Component } from 'react'
 //     return mapperdArr
 //   }
 // }
+
+// 有关this指向问题
+function Person2() {
+  this.name = '1';
+  let that = this
+  function setName() {
+    that.name = 'b';
+    console.log(that.name, that, this)
+  }
+  setName()
+}
+let a = new Person2()
+console.log(a)
+// Person2{name:'b'}
+
+// 将字符串转化成数组
+let mapFun = Array.prototype.map
+a = mapFun.call('sfafasfassfafdf', function (i) { return i })
+console.log(a)
+
+// 用apply将数组各项添加到另一个数组
+let arr = [1, 2, 3]
+arr.push.apply(arr, [3, 4, 5])
+console.log(arr)
 class Algorithm extends Component {
   state = {
     result: '',
     result2: '',
     result3: '',
-    result4: ''
+    result4: '',
+    result5: ''
   }
   findDuplicateByHashMap = nums => {
     let ret = []
@@ -25,6 +51,7 @@ class Algorithm extends Component {
       }
       record.add(i)
     })
+    console.log(record)
     return ret
   }
   // 思路很有意思，但是有bug； 二分法可以用递归和while遍历两种方式实现
@@ -70,12 +97,13 @@ class Algorithm extends Component {
     return sum
   }
 
-  // 比较两个对象是否相等
-  equalsObj = (obj1, obj2) => {
-    // 指向同一内存时
-    let x = obj1 instanceof Object;
-    let y = obj2 instanceof Object;
-    if (!x || !y) {
+  // 比较两个对象是否相等y
+  equalsObj = (x, y) => {
+    // 指向同一内存时y
+    let xType = x instanceof Object;
+    let yType = y instanceof Object;
+    if (!xType || !yType) {
+      // 两个值不是对象，直接比较值是否相等
       return x === y
     }
     else if ((typeof x === "object" && x !== null) && (typeof y == "object" && y != null)) {
@@ -123,6 +151,10 @@ class Algorithm extends Component {
         let result4 = this.missingNumber(arr)
         this.setState({ result4 })
         break;
+      case 5:
+        let result5 = this.sortArray(arr)
+        this.setState({ result5 })
+        break;
       default: return;
     }
   }
@@ -136,6 +168,27 @@ class Algorithm extends Component {
     }
     return missingNumber === -1 ? nums.length : missingNumber
   };
+  sortArray = (nums) => {
+    // 按行按列排序
+    let arr = nums.map(i => i.sort((c, d) => c - d))
+      .sort((a, b) => {
+        let length = a.length > b.length ? b.length : a.length
+        let flag = 0
+        for (let i = 0; i < length; i++) {
+          if (a[i] - b[i] !== 0) {
+            flag = a[i] - b[i]
+            return flag
+          }
+        }
+        return flag
+      })
+    console.log(arr)
+    return arr.join(',')
+  }
+  sortArrayEntries = (nums) => {
+    // 用entries实现
+
+  }
   render() {
     return <div>
       <a href='https://juejin.im/entry/5d1bfc146fb9a07edf275f48?utm_source=gold_browser_extension'>一组有关算法的练习</a>
@@ -157,7 +210,14 @@ class Algorithm extends Component {
       <p>[0,1,3]</p>
       <button onClick={() => this.getResultHandler(4, [0, 1, 3])}>result</button>
       <p>{this.state.result4}</p>
-    </div>
+      <p>二维数组按行排序</p>
+      <p>var arr = [[1,34],[456,2,3,44,234],[4567,1,4,5,6],[34,78,23,1]];</p>
+      <button onClick={() => this.getResultHandler(5, [[1, 34], [456, 2, 3, 44, 234], [4567, 1, 4, 5, 6], [34, 78, 23, 1]])}>result</button>
+      <p>{this.state.result5}</p>
+      <p>深度遍历比较对象的值{`obj= {a:{b:1 , c:2}} obj2= {a:{b:1 , c:2}}`} </p>
+      <button onClick={() => this.equalsObj({ a: { b: 1, c: 2 } }, { a: { b: 1, c: 2 } })}>result</button>
+
+    </div >
   }
 }
 
