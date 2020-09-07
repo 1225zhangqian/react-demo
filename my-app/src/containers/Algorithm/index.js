@@ -29,7 +29,7 @@ console.log(a)
 let mapFun = Array.prototype.map
 a = mapFun.call('sfafasfassfafdf', function (i) { return i })
 console.log(a)
-
+console.log('sfafasfassfafdf'.split(''))
 // 用apply将数组各项添加到另一个数组
 let arr = [1, 2, 3]
 arr.push.apply(arr, [3, 4, 5])
@@ -40,7 +40,8 @@ class Algorithm extends Component {
     result2: '',
     result3: '',
     result4: '',
-    result5: ''
+    result5: '',
+    result6: ''
   }
   findDuplicateByHashMap = nums => {
     let ret = []
@@ -56,7 +57,6 @@ class Algorithm extends Component {
   }
   // 思路很有意思，但是有bug； 二分法可以用递归和while遍历两种方式实现
   findDuplicateByBinary = nums => {
-    debugger
     nums.sort()//遍历有序数组
     let start = 1
     let end = nums.length - 1
@@ -126,8 +126,9 @@ class Algorithm extends Component {
 
   // 替换数组中相同的某个对象，并置顶
   changPositionIndex = (arr, obj) => {
-    arr.filter(i => i !== obj)
-    arr.unshift(obj)
+    let ret = arr.filter(i => i !== obj)
+    ret.unshift(obj)
+    return ret
   }
 
   // 实现对象的深度拷贝
@@ -155,7 +156,36 @@ class Algorithm extends Component {
         let result5 = this.sortArray(arr)
         this.setState({ result5 })
         break;
+      case 6:
+        let result6 = this.findHighFrequencyWords(arr)
+        this.setState({ result6 })
+        break;
       default: return;
+    }
+  }
+
+  findHighFrequencyWords = (str) => {
+    let arr = str.split('')
+    // 将字符串转数组
+    // let arr =  [...str]
+    // let arr = [].slice.call(str)
+    let obj = {}
+    for (let i of arr) {
+      if (obj[i]) {
+        obj[i].index = ++obj[i].index
+      } else {
+        obj[i] = { index: 1 }
+      }
+    }
+    let entries = Object.entries(obj).sort((a, b) => b.value - a.value)
+    let count = 1
+    for (let i of entries) {
+      let [key, { index: value }] = i
+      if (count > value) {
+        return
+      }
+      console.log("****", key, value)
+      count = value
     }
   }
   missingNumber = (nums) => {
@@ -216,7 +246,9 @@ class Algorithm extends Component {
       <p>{this.state.result5}</p>
       <p>深度遍历比较对象的值{`obj= {a:{b:1 , c:2}} obj2= {a:{b:1 , c:2}}`} </p>
       <button onClick={() => this.equalsObj({ a: { b: 1, c: 2 } }, { a: { b: 1, c: 2 } })}>result</button>
-
+      <p>js 统计一个字符串出现频率最高的字母/数字 </p>
+      <p>let str = 'asdfghjklaqwertyuiopiaia';</p>
+      <button onClick={() => this.getResultHandler(6, 'asdfghjklaqwertyuiopiaia')}>result</button>
     </div >
   }
 }
