@@ -11,6 +11,20 @@ import React, { Component } from 'react'
 //   }
 // }
 
+// 实现myFlat
+let myFlat = function (arr) {
+  let newArr = []
+  for (let i of arr) {
+    if (Array.isArray(i)) {
+      newArr = [...newArr, ...myFlat(i)]
+    } else {
+      newArr.push(i)
+    }
+  }
+  return newArr
+}
+let arr2 = [1, 2, [3, 4, [5, 6]]]
+console.log(myFlat(arr2))
 // 有关this指向问题
 function Person2() {
   this.name = '1';
