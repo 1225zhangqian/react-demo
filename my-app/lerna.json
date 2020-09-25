@@ -7,8 +7,7 @@
         "ignored-file",
         "*.md"
       ],
-      "message": "chore(release): publish",
-      "registry": "https://github.com/1225zhangqian/react-demo.git"
+      "message": "chore(release): publish"
     },
     "bootstrap": {
       "ignore": "component-*",
