@@ -1,0 +1,48 @@
+@import "./variables";
+
+// Applies the correct theme color style to the specified property.
+@mixin zq-theme-prop-generate(
+  $property,
+  $style,
+  $theme-property-values,
+  $important: false
+) {
+  $value: map-get($theme-property-values, $style);
+
+  @if $important {
+    #{$property}: $value !important;
+    #{$property}: var(--zq-theme-#{$style}, $value) !important;
+  } @else {
+    #{$property}: $value;
+    #{$property}: var(--zq-theme-#{$style}, $value);
+  }
+}
+
+@mixin theme-prop($property, $style, $important: false) {
+  @at-root {
+    @each $themeName, $theme-property-values in $themes {
+      .#{$css-prefix}-theme[data-theme="#{$themeName}"] & {
+        @include zq-theme-prop-generate(
+          $property,
+          $style,
+          $theme-property-values,
+          $important
+        );
+      }
+    }
+  }
+  @include zq-theme-prop-generate(
+    $property,
+    $style,
+    $theme-dark-values,
+    $important
+  );
+}
+
+// @mixin theme-core-styles() {
+//   :root {
+//     @each $style in map-keys($theme-dark-values) {
+//       --theme-#{$style}: #{map-get($theme-dark-values, $style)};
+//     }
+//   }
+// }
