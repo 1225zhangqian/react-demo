@@ -11,6 +11,8 @@ import MenuDemo from './containers/MenuDemo/MenuDemo'
 import Algorithm from './containers/Algorithm'
 import TodoListDemo from './containers/TodoListDemo/TodoListDemo'
 import MyTodoList from './containers/MyTodoList'
+import ThemeDemo from './containers/ThemeProvider/theme/demo'
+
 const routes = [
   {
     path: '/home',
@@ -102,6 +104,13 @@ const routes = [
     name: 'MyTodoList',
     Breadcrumb: () => <span>MyTodoList</span>,
     main: () => <MyTodoList />,
+    iconType: 'user'
+  },
+  {
+    path: '/ThemeDemo',
+    name: 'ThemeDemo',
+    Breadcrumb: () => <span>ThemeDemo</span>,
+    main: () => <ThemeDemo />,
     iconType: 'user'
   }
 ]

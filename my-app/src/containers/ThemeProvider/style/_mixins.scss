@@ -21,7 +21,7 @@
 @mixin theme-prop($property, $style, $important: false) {
   @at-root {
     @each $themeName, $theme-property-values in $themes {
-      .#{$css-prefix}-theme[data-theme="#{$themeName}"] & {
+      .#{$css-prefix}-theme[data-theme=#{$themeName}] & {
         @include zq-theme-prop-generate(
           $property,
           $style,

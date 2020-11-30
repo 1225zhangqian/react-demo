@@ -1,0 +1,15 @@
+@import "../style/index.scss";
+.box-wrap{
+    margin: 20px;
+    width: 100px;
+    height: 100px;
+    border:1px solid;
+    @include theme-prop("background","background");
+    @include theme-prop("border-color","background2");
+}
+.box-content{
+    margin: 20px;
+    width: 60px;
+    height: 60px;
+    @include theme-prop("background","background2");
+}
