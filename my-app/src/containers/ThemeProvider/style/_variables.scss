@@ -8,19 +8,19 @@ $themes: (
   light: $theme-light-values
 );
 
-@function theme-variables() {
-  $i: "";
-  @each $themeKey, $theme-property-values in $themes {
-    $j: "";
-    @each $key, $value in $theme-property-values {
-      $k: #{$themeKey}*#{$key}*#{$value};
-      $j: append($j, $k, space);
-    }
-    $i: append($i, $j);
-  }
-  @return #{$i};
-}
+// @function theme-variables() {
+//   $i: "";
+//   @each $themeKey, $theme-property-values in $themes {
+//     $j: "";
+//     @each $key, $value in $theme-property-values {
+//       $k: #{$themeKey}*#{$key}*#{$value};
+//       $j: append($j, $k, space);
+//     }
+//     $i: append($i, $j);
+//   }
+//   @return #{$i};
+// }
 
-:export {
-  themeVariables: theme-variables();
-}
+// :export {
+//   themeVariables: theme-variables();
+// }
