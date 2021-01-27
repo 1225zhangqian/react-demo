@@ -48,6 +48,24 @@ console.log('sfafasfassfafdf'.split(''))
 let arr = [1, 2, 3]
 arr.push.apply(arr, [3, 4, 5])
 console.log(arr)
+const sortArray = nums => {
+  // 按行按列排序
+  let arr = nums.map(i => i.sort((c, d) => c - d))
+    .sort((a, b) => {
+      let length = a.length > b.length ? b.length : a.length
+      let flag = 0
+      for (let i = 0; i < length; i++) {
+        if (a[i] - b[i] !== 0) {
+          flag = a[i] - b[i]
+          return flag
+        }
+      }
+      return flag
+    })
+  console.log(arr)
+  return arr.join(',')
+}
+sortArray([[1, 34], [456, 2, 3, 44, 234], [4567, 1, 4, 5, 6], [34, 78, 23, 1]])
 class Algorithm extends Component {
   state = {
     result: '',
@@ -111,7 +129,7 @@ class Algorithm extends Component {
     return sum
   }
 
-  // 比较两个对象是否相等y
+  // 比较两个对象的值是否相等
   equalsObj = (x, y) => {
     // 指向同一内存时y
     let xType = x instanceof Object;
@@ -229,6 +247,7 @@ class Algorithm extends Component {
     console.log(arr)
     return arr.join(',')
   }
+
   sortArrayEntries = (nums) => {
     // 用entries实现
 
