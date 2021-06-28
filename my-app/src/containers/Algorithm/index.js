@@ -10,7 +10,36 @@ import React, { Component } from 'react';
 //     return mapperdArr
 //   }
 // }
+// Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
+var romanToInt = function (s) {
+  let romanSingle = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
+  let romanNum = { IV: 4, IX: 9, XL: 40, XC: 90, CD: 400, CM: 900 };
+  let newString = s;
+  let result = 0;
 
+  const getResult = (string, result, i, romanList) => {
+    let index = string.indexOf(i);
+    if (index > -1) {
+      newString =
+        string.substring(0, index) + string.substring(index + i.length);
+      result += ((string.length - newString.length) / i.length) * romanList[i];
+      result = getResult(newString, result, i, romanList);
+    }
+
+    return result;
+  };
+  Object.keys(romanNum).forEach(i => {
+    result = getResult(newString, result, i, romanNum);
+  });
+  Object.keys(romanSingle).forEach(i => {
+    result = getResult(newString, result, i, romanSingle);
+  });
+  return result;
+};
+console.log('**************');
+let ddd = romanToInt('MCMXCIV');
+console.log(ddd);
+console.log('**************');
 // setTimeout 和 promise
 var r = new Promise(function (resolve, reject) {
   console.log('a');
@@ -26,7 +55,8 @@ var r = new Promise(function (resolve, reject) {
   setTimeout(() => {
     console.log(1);
     resolve();
-  }, 1000);
+    console.log(2);
+  }, 0);
 });
 
 r.then(() => {
@@ -36,6 +66,38 @@ r.then(() => {
   new Promise(function (resolve, reject) {
     resolve();
   }).then(() => console.log('c2'));
+});
+// setTimeout 和 promise 执行顺序进阶2
+setTimeout(() => {
+  console.log(1);
+});
+
+setTimeout(() => {
+  new Promise((resolve, reject) => {
+    console.log(2);
+    resolve();
+  }).then(() => {
+    console.log(3);
+  });
+});
+
+console.log(4);
+
+new Promise((resolve, reject) => {
+  console.log(5);
+  resolve();
+}).then(() => {
+  console.log(6);
+});
+
+new Promise((resolve, reject) => {
+  console.log(7);
+  setTimeout(() => {
+    console.log(8);
+  });
+  resolve();
+}).then(() => {
+  console.log(9);
 });
 
 // setTimeout 和 for
@@ -116,6 +178,24 @@ sortArray([
   [4567, 1, 4, 5, 6],
   [34, 78, 23, 1]
 ]);
+
+// 计算回文字符串
+// 输入 "abc" 输出 3
+const fun = string => {
+  let arr = string.split('');
+  let num = 0;
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i; j < arr.length; j++) {
+      if (arr[i] === arr[j]) {
+        num++;
+      }
+    }
+  }
+  return num;
+};
+console.log('*******************');
+console.log(fun('aaaa'));
+console.log('*******************');
 class Algorithm extends Component {
   state = {
     result: '',
