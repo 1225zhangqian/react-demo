@@ -3,10 +3,26 @@
 // Prefix
 $css-prefix: "react-ui";
 // theme
-$themes: (
-  dark: $theme-dark-values,
-  light: $theme-light-values
-);
+$themes: (dark: $theme-dark-values,
+  light: $theme-light-values);
+
+@function theme-variables($theme-property-values) {
+  $i: '';
+
+  @each $key,
+  $value in $theme-property-values {
+    $n: #{$key 1 $value  0 };
+    $i: append($i, $n, $separator: auto);
+  }
+
+  @return #{$i};
+}
+
+
+:export {
+  dark: #{theme-variables($theme-dark-values)};
+  light: #{theme-variables($theme-light-values)};
+}
 
 // @function theme-variables() {
 //   $i: "";

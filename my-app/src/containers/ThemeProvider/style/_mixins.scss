@@ -1,42 +1,53 @@
 @import "./variables";
 
 // Applies the correct theme color style to the specified property.
-@mixin zq-theme-prop-generate(
-  $property,
+@mixin zq-theme-prop-generate($property,
   $style,
   $theme-property-values,
-  $important: false
-) {
+  $important: false) {
   $value: map-get($theme-property-values, $style);
 
   @if $important {
-    #{$property}: $value !important;
-    #{$property}: var(--zq-theme-#{$style}, $value) !important;
-  } @else {
-    #{$property}: $value;
-    #{$property}: var(--zq-theme-#{$style}, $value);
+    @supports (--sfx-theme-#{$style}: $value) {
+      #{$property}: var(--sfx-theme-#{$style}, $value) !important;
+    }
+
+    @supports not (--sfx-theme-#{$style}: $value) {
+      #{$property}: $value !important;
+    }
+  }
+
+  @else {
+    @supports (--sfx-theme-#{$style}: $value) {
+      #{$property}: var(--sfx-theme-#{$style}, $value);
+    }
+
+    @supports not (--sfx-theme-#{$style}: $value) {
+      #{$property}: $value;
+    }
   }
 }
 
 @mixin theme-prop($property, $style, $important: false) {
+  @include zq-theme-prop-generate($property,
+    $style,
+    $theme-dark-values,
+    $important);
+
   @at-root {
-    @each $themeName, $theme-property-values in $themes {
+
+    @each $themeName,
+    $theme-property-values in $themes {
       .#{$css-prefix}-theme[data-theme=#{$themeName}] & {
-        @include zq-theme-prop-generate(
-          $property,
+        @include zq-theme-prop-generate($property,
           $style,
           $theme-property-values,
-          $important
-        );
+          $important);
       }
     }
   }
-  @include zq-theme-prop-generate(
-    $property,
-    $style,
-    $theme-dark-values,
-    $important
-  );
+
+
 }
 
 // @mixin theme-core-styles() {
