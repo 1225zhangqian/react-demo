@@ -6,13 +6,13 @@ const style = {
   padding: '0.5rem',
   margin: '0.5rem',
 };
-export const SourceBox = memo(function SourceBox({
+const Draggable = memo(function SourceBox({
   id,
   index,
   color,
   children,
   moveCard,
-  text,
+  title,
 }) {
   const [forbidDrag, setForbidDrag] = useState(false);
   const [{ isDragging }, drag] = useDrag(
@@ -93,7 +93,10 @@ export const SourceBox = memo(function SourceBox({
         return;
       }
       // Time to actually perform the action
-      moveCard(dragIndex, hoverIndex);
+      if (moveCard) {
+        moveCard(dragIndex, hoverIndex);
+      }
+
       // Note: we're mutating the monitor item here!
       // Generally it's better to avoid mutations,
       // but it's good here for the sake of performance
@@ -110,14 +113,14 @@ export const SourceBox = memo(function SourceBox({
       data-color={color}
       data-handler-id={handlerId}
     >
-      <input
+      <hr style={{ display: `${isOverCurrent ? 'block' : 'none'}` }} />
+      {/* <input
         type="checkbox"
         checked={forbidDrag}
         onChange={onToggleForbidDrag}
-      />
-      <small>{text}</small>
-      <hr style={{ display: `${isOverCurrent ? 'block' : 'none'}` }} />
+      /> */}
       {children}
     </div>
   );
 });
+export default Draggable;
