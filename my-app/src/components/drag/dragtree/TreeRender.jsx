@@ -8,24 +8,26 @@ export const treeRender = (node, index) => {
     </Draggable>
   );
   return (
-    <Droppable>
+    <Draggable id={node.id} color={'yellow'} index={index} title={node.title}>
       <div>
         <div> {node.title}</div>
-        {node?.children?.map((item, index) =>
-          !item?.children?.length ? (
-            renderDraggable(item, index)
-          ) : (
-            <Draggable
-              id={item.id}
-              color={'yellow'}
-              index={index}
-              title={item.title}
-            >
-              <div>{treeRender(item, index)}</div>
-            </Draggable>
-          )
-        )}
+        <Droppable>
+          {node?.children?.map((item, index) =>
+            !item?.children?.length ? (
+              renderDraggable(item, index)
+            ) : (
+              <Draggable
+                id={item.id}
+                color={'yellow'}
+                index={index}
+                title={item.title}
+              >
+                <div>{treeRender(item, index)}</div>
+              </Draggable>
+            )
+          )}
+        </Droppable>
       </div>
-    </Droppable>
+    </Draggable>
   );
 };

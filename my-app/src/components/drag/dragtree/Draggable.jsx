@@ -3,8 +3,8 @@ import { useDrag, useDrop } from 'react-dnd';
 import { Colors } from './Color';
 const style = {
   border: '1px dashed gray',
-  padding: '0.5rem',
-  margin: '0.5rem',
+  // padding: '0.5rem',
+  // margin: '0.5rem',
 };
 const Draggable = memo(function SourceBox({
   id,
@@ -109,7 +109,7 @@ const Draggable = memo(function SourceBox({
     <div
       ref={ref}
       style={containerStyle}
-      role="SourceBox"
+      role="DraggableBox"
       data-color={color}
       data-handler-id={handlerId}
     >

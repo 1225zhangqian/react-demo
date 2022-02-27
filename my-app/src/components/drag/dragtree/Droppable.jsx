@@ -9,9 +9,9 @@ function getStyle(backgroundColor) {
     // minWidth: '8rem',
     color: 'white',
     backgroundColor,
-    padding: '2rem',
+    // padding: '2rem',
     paddingTop: '1rem',
-    margin: '1rem',
+    // margin: '1rem',
     textAlign: 'center',
     // float: 'left',
     fontSize: '1rem',
@@ -43,7 +43,7 @@ const Droppable = ({ greedy, children }) => {
     backgroundColor = 'darkgreen';
   }
   return (
-    <div ref={drop} style={getStyle(backgroundColor)}>
+    <div ref={drop} style={getStyle(backgroundColor)} role="DroppableBox">
       <div>{children}</div>
     </div>
   );
